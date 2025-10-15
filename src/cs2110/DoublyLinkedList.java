@@ -100,18 +100,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assertInv();
     }
 
-    /**
-     * Returns the DNode at a given index position Preconditions: index >= 0 && index < size
-     *
-     */
-    private DNode findDNode(int index) {
-        assert index >= 0 && index < size();
-        DNode current = head;
-        for (int i = 0; i < index; i++) {
-            current = current.next;
-        }
-        return current;
-    }
+
 
     @Override
     public void add(T elem) {
@@ -125,26 +114,23 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assert elem != null;
         assert index >= 0 && index <= size();
 
-        if (index == 0){ //adding to beginning
+        if (index == 0) { //adding to beginning
             DNode newNode = new DNode(elem, null, head);
-            if (head != null){ //list is not empty
+            if (head != null) { //list is not empty
                 head.prev = newNode;
-            }
-            else{ //need to update tail if the list was empty
+            } else { //need to update tail if the list was empty
                 tail = newNode;
             }
             head = newNode;
-        }
-        else if(index == size){ //adding to end
+        } else if (index == size) { //adding to end
             DNode newNode = new DNode(elem, tail, null);
             tail.next = newNode;
             tail = newNode;
-        }
-        else {//regular case, not adding to front or end
+        } else {//regular case, not adding to front or end
             //current = first DNode that will be shifted to the right
-            DNode current = findDNode(index);
+            DNode current = findDNodeAtIndex(index);
 
-            DNode newNode = new DNode(elem,current.prev, current);
+            DNode newNode = new DNode(elem, current.prev, current);
             current.prev.next = newNode;
             current.prev = newNode;
 
@@ -161,36 +147,99 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     @Override
     public T get(int index) {
         assert index >= 0 && index < size();
-        return findDNode(index).data;
+        return findDNodeAtIndex(index).data;
 
     }
 
+
+
     @Override
     public boolean contains(T elem) {
-        // TODO 2d: Implement this method according to its specifications.
-        throw new UnsupportedOperationException();
+        return indexOfElem(elem) < size;
     }
 
     @Override
     public int indexOf(T elem) {
-        // TODO 2e: Implement this method according to its specifications.
-        throw new UnsupportedOperationException();
+        assert contains(elem);
+        return indexOfElem(elem);
     }
 
     @Override
     public void set(int index, T elem) {
-        // TODO 2f: Implement this method according to its specifications.
+        assert index >= 0 && index < size();
+        assert elem != null;
+        findDNodeAtIndex(index).data = elem;
     }
 
     @Override
     public T remove(int index) {
         // TODO 2g: Implement this method according to its specifications.
-        throw new UnsupportedOperationException();
+        assert index >= 0 && index < size();
+        DNode node = findDNodeAtIndex(index);
+
+        if (index == 0){
+            head = head.next;
+            if (size() != 1){
+                node.next.prev = null;
+            }
+            else{
+                tail = null;
+            }
+            node.next = null;
+        }
+        else if (index == size()-1){
+            tail = tail.prev;
+            if (size()!=1){
+                node.prev.next = null;
+            }
+            else{
+                head = null;
+            }
+            node.prev = null;
+        }
+        else{
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            node.next = null;
+            node.prev = null;
+        }
+        size --;
+        assertInv();
+        return node.data;
     }
 
     @Override
     public void delete(T elem) {
-        // TODO 2h: Implement this method according to its specifications.
+        assert contains(elem);
+        remove(indexOfElem(elem));
+    }
+
+    /**
+     * Returns the DNode at a given index position Preconditions: index >= 0 && index < size
+     *
+     */
+    private DNode findDNodeAtIndex(int index) {
+        assert index >= 0 && index < size();
+        DNode current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current;
+    }
+
+    /**
+     * Returns the smallest index `i` at which `elem` is stored in this list. If 'elem' is not
+     * stored in this list, return size of this list.
+     */
+    private int indexOfElem(T elem) {
+        int i = 0;
+        for (T element : this) {
+            if (element.equals(elem)) {
+                return i;
+            }
+            i++;
+        }
+        return i;
     }
 
     /**
