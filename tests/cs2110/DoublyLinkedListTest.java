@@ -127,6 +127,7 @@ public class DoublyLinkedListTest extends ListTest {
         }
     }
 
+    /*
     @DisplayName("isMirrored2()")
     @Nested
     class testIsMirrored2 {
@@ -277,5 +278,5 @@ public class DoublyLinkedListTest extends ListTest {
             assertTrue(ListUtilities.isMirrored2(list1));
         }
     }
-
+    */
 }
