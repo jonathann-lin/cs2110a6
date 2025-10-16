@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 
-public class DoublyLinkedTest extends ListTest {
+public class DoublyLinkedListTest extends ListTest {
 
 
     @Override
