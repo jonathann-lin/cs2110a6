@@ -14,6 +14,8 @@ public class ListUtilities {
     public static <T> boolean isMirrored1(CS2110List<T> list) {
         Iterator <T> it1 = list.iterator();
 
+        //TODO loop invariant
+
         for (int i = 0; i<list.size(); i++){
             T elem1 = it1.next();
             T elem2 = elem1;
@@ -34,6 +36,15 @@ public class ListUtilities {
      */
     public static <T> boolean isMirrored2(DoublyLinkedList<T> list) {
         // TODO 7: Implement this method according to its specifications.
+        Iterator <T> it1 = list.iterator();
+        Iterator <T> it2 = list.reverseIterator();
+        //TODO loop invariant
+        for (int i = 0; i< list.size(); i++){
+            if (!(it1.next().equals(it2.next()))){
+                return false;
+            }
+        }
+        return true;
 
-    }  throw new UnsupportedOperationException();
+    }
 }

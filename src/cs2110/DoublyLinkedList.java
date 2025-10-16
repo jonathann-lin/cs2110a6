@@ -101,7 +101,6 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     }
 
 
-
     @Override
     public void add(T elem) {
         assert elem != null;
@@ -152,7 +151,6 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     }
 
 
-
     @Override
     public boolean contains(T elem) {
         return indexOfElem(elem) < size;
@@ -176,33 +174,29 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assert index >= 0 && index < size();
         DNode node = findDNodeAtIndex(index);
 
-        if (index == 0){
+        if (index == 0) {
             head = head.next;
-            if (size() != 1){
+            if (size() != 1) {
                 node.next.prev = null;
-            }
-            else{
+            } else {
                 tail = null;
             }
             node.next = null;
-        }
-        else if (index == size()-1){
+        } else if (index == size() - 1) {
             tail = tail.prev;
-            if (size()!=1){
+            if (size() != 1) {
                 node.prev.next = null;
-            }
-            else{
+            } else {
                 head = null;
             }
             node.prev = null;
-        }
-        else{
+        } else {
             node.prev.next = node.next;
             node.next.prev = node.prev;
             node.next = null;
             node.prev = null;
         }
-        size --;
+        size--;
         assertInv();
         return node.data;
     }
@@ -220,6 +214,8 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     private DNode findDNodeAtIndex(int index) {
         assert index >= 0 && index < size();
         DNode current = head;
+
+        //TODO loop invariant
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
@@ -232,6 +228,8 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
      */
     private int indexOfElem(T elem) {
         int i = 0;
+
+        //TODO loop invariant
         for (T element : this) {
             if (element.equals(elem)) {
                 return i;
@@ -299,7 +297,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
      * element exactly once in the correct order) only if the list is not mutated during the
      * lifetime of this iterator.
      */
-    private class ReverseIterator implements Iterator<T>{
+    private class ReverseIterator implements Iterator<T> {
 
         /**
          * The node whose value will next be returned by the iterator, or null once the iterator

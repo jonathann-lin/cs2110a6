@@ -691,8 +691,9 @@ public abstract class ListTest {
             assertFalse(it.hasNext());
         }
 
-        @DisplayName("WHEN we create multiple iterators over the same list, THEN they both separately "
-                + "keep track of which elements they have returned.")
+        @DisplayName(
+                "WHEN we create multiple iterators over the same list, THEN they both separately "
+                        + "keep track of which elements they have returned.")
         @Test
         public void testMultipleIterators() {
             CS2110List<Integer> list = constructList();
@@ -730,8 +731,8 @@ public abstract class ListTest {
     }
 
     /**
-     * These tests check the functionality of the `isMirrored1()` method, using `add()` to modify the
-     * contents of the list.
+     * These tests check the functionality of the `isMirrored1()` method, using `add()` to modify
+     * the contents of the list.
      */
     @DisplayName("isMirrored1()")
     @Nested
