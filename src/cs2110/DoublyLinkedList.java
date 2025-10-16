@@ -167,6 +167,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assert index >= 0 && index < size();
         assert elem != null;
         findDNodeAtIndex(index).data = elem;
+        assertInv();
     }
 
     @Override
