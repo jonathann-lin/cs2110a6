@@ -251,6 +251,15 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         return new ForwardIterator();
     }
 
+    /**
+     * Return an iterator over the elements of this list (in reverse order). To ensure the
+     * functionality of this iterator, this list should not be mutated while the iterator is in
+     * use.
+     */
+    public Iterator<T> reverseIterator() {
+        return new ReverseIterator();
+    }
+
 
     /**
      * A forward iterator over a doubly-linked list. Guarantees correct behavior (visits each
@@ -282,6 +291,36 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
             T elem = nextToVisit.data;
             nextToVisit = nextToVisit.next;
             return elem;
+        }
+    }
+
+    /**
+     * A reverse iterator over a doubly-linked list. Guarantees correct behavior (visits each
+     * element exactly once in the correct order) only if the list is not mutated during the
+     * lifetime of this iterator.
+     */
+    private class ReverseIterator implements Iterator<T>{
+
+        /**
+         * The node whose value will next be returned by the iterator, or null once the iterator
+         * reaches the beginning of the list.
+         */
+        private DNode nextToVisit;
+
+        public ReverseIterator() {
+            nextToVisit = tail;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return (nextToVisit != null);
+        }
+
+        @Override
+        public T next() {
+            T temp = nextToVisit.data;
+            nextToVisit = nextToVisit.prev;
+            return temp;
         }
     }
 
