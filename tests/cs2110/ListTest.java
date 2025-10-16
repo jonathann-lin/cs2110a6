@@ -728,4 +728,162 @@ public abstract class ListTest {
             assertFalse(it2.hasNext());
         }
     }
+
+    /**
+     * These tests check the functionality of the `isMirrored1()` method, using `add()` to modify the
+     * contents of the list.
+     */
+    @DisplayName("isMirrored1()")
+    @Nested
+    class testIsMirrored1 {
+
+        @DisplayName("WHEN we create mirrored arrays, THEN isMirrored1() should "
+                + "return true.")
+        @Test
+        public void testMirroredTrue() {
+            CS2110List<Integer> list = constructList();
+            list.add(0);
+            list.add(1);
+            list.add(2);
+            list.add(1);
+            list.add(0);
+            assertTrue(ListUtilities.isMirrored1(list));
+
+            CS2110List<String> list1 = constructList();
+            list1.add("One");
+            list1.add("Two");
+            list1.add("Three");
+            list1.add("Two");
+            list1.add("One");
+            assertTrue(ListUtilities.isMirrored1(list1));
+
+            CS2110List<Integer> list2 = constructList();
+            list2.add(5);
+            list2.add(10);
+            list2.add(5);
+            assertTrue(ListUtilities.isMirrored1(list2));
+
+            CS2110List<Integer> list3 = constructList();
+            list3.add(7);
+            assertTrue(ListUtilities.isMirrored1(list3)); // single-element list is mirrored
+
+            CS2110List<Integer> list4 = constructList();
+            // empty list
+            assertTrue(ListUtilities.isMirrored1(list4)); // empty list is mirrored
+
+            CS2110List<String> list5 = constructList();
+            list5.add("Hello");
+            list5.add("World");
+            list5.add("World");
+            list5.add("Hello");
+            assertTrue(ListUtilities.isMirrored1(list5));
+
+            CS2110List<String> list6 = constructList();
+            list6.add("Hi");
+            list6.add("Hi");
+            assertTrue(ListUtilities.isMirrored1(list6));
+        }
+
+        @DisplayName("WHEN we create non-mirrored arrays, THEN isMirrored1() should "
+                + "return false.")
+        @Test
+        public void testMirroredFalse() {
+            CS2110List<Integer> list = constructList();
+            list.add(0);
+            list.add(1);
+            list.add(2);
+            list.add(3);
+            list.add(0);
+            assertFalse(ListUtilities.isMirrored1(list));
+
+            CS2110List<String> list1 = constructList();
+            list1.add("One");
+            list1.add("Two");
+            list1.add("Three");
+            list1.add("Four");
+            list1.add("One");
+            assertFalse(ListUtilities.isMirrored1(list1));
+
+            CS2110List<Integer> list2 = constructList();
+            list2.add(5);
+            list2.add(10);
+            list2.add(15);
+            assertFalse(ListUtilities.isMirrored1(list2));
+
+            CS2110List<Integer> list3 = constructList();
+            list3.add(7);
+            list3.add(8);
+            assertFalse(ListUtilities.isMirrored1(list3)); // two-element non-mirrored list
+
+            CS2110List<String> list4 = constructList();
+            list4.add("Hello");
+            list4.add("World");
+            list4.add("Hi");
+            list4.add("Hello");
+            assertFalse(ListUtilities.isMirrored1(list4));
+
+            CS2110List<String> list5 = constructList();
+            list5.add("A");
+            list5.add("B");
+            list5.add("C");
+            list5.add("B");
+            list5.add("D");
+            assertFalse(ListUtilities.isMirrored1(list5));
+        }
+
+        @DisplayName("WHEN we edit lists with various methods, THEN isMirrored1() should update correctly.")
+        @Test
+        public void testMirroredAfterEdits() {
+            // 1. Using add() to create a mirrored list
+            CS2110List<Integer> list = constructList();
+            list.add(1);
+            list.add(2);
+            list.add(3);
+            list.add(2);
+            list.add(1);
+            assertTrue(ListUtilities.isMirrored1(list));
+
+            // 2. Using insert() to break the mirror
+            list.insert(2, 99); // insert in the middle
+            assertFalse(ListUtilities.isMirrored1(list));
+
+            // 3. Using set() to restore mirror
+            list.set(2, 3); // set the middle element back
+            assertTrue(ListUtilities.isMirrored1(list));
+
+            // 4. Using remove(int index) to break mirror
+            list.remove(1); // remove second element
+            assertFalse(ListUtilities.isMirrored1(list));
+
+            // 5. Using delete(T elem) to restore mirror
+            list.delete(2); // delete the element that broke symmetry
+            assertTrue(ListUtilities.isMirrored1(list));
+
+            // 6. Using add() on strings
+            CS2110List<String> list1 = constructList();
+            list1.add("A");
+            list1.add("B");
+            list1.add("C");
+            list1.add("B");
+            list1.add("A");
+            assertTrue(ListUtilities.isMirrored1(list1));
+
+            // 7. Using insert() to break mirror
+            list1.insert(0, "X"); // add at start
+            assertFalse(ListUtilities.isMirrored1(list1));
+
+            // 8. Using add() to restore mirror
+            list1.add("X"); // add 'X' to end to restore mirror
+            assertTrue(ListUtilities.isMirrored1(list1));
+
+            // 9. Using remove() to break mirror
+            list1.remove(0); // remove first element
+            assertFalse(ListUtilities.isMirrored1(list1));
+
+            // 11. Using delete() to restore mirror
+            list1.delete("X"); // delete last element
+            assertTrue(ListUtilities.isMirrored1(list1));
+
+        }
+    }
 }

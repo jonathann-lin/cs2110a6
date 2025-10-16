@@ -173,7 +173,6 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
 
     @Override
     public T remove(int index) {
-        // TODO 2g: Implement this method according to its specifications.
         assert index >= 0 && index < size();
         DNode node = findDNodeAtIndex(index);
 
