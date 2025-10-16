@@ -215,7 +215,9 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
         assert index >= 0 && index < size();
         DNode current = head;
 
-        //TODO loop invariant
+        /*
+        Loop invariant: current is the DNode at index i
+         */
         for (int i = 0; i < index; i++) {
             current = current.next;
         }
@@ -229,7 +231,9 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     private int indexOfElem(T elem) {
         int i = 0;
 
-        //TODO loop invariant
+        /*
+        Loop invariant: all elements in [0,i) are not equal to elem. element is at index i.
+         */
         for (T element : this) {
             if (element.equals(elem)) {
                 return i;
