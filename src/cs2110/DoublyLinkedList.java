@@ -206,6 +206,7 @@ public class DoublyLinkedList<T> implements CS2110List<T> {
     public void delete(T elem) {
         assert contains(elem);
         remove(indexOfElem(elem));
+        assertInv();
     }
 
     /**
