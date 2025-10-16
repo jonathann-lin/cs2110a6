@@ -34,6 +34,6 @@ public class ListUtilities {
      */
     public static <T> boolean isMirrored2(DoublyLinkedList<T> list) {
         // TODO 7: Implement this method according to its specifications.
-        throw new UnsupportedOperationException();
-    }
+
+    }  throw new UnsupportedOperationException();
 }
