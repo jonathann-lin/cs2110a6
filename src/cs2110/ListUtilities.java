@@ -12,7 +12,6 @@ public class ListUtilities {
      * when iterated in the forward or reverse directions.
      */
     public static <T> boolean isMirrored1(CS2110List<T> list) {
-        // TODO 5: Implement this method according to its specifications.
         Iterator <T> it1 = list.iterator();
 
         for (int i = 0; i<list.size(); i++){
